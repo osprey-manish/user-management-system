@@ -18,7 +18,7 @@ class UpdateUserRequests extends FormRequest
         return [
             'name'     => 'sometimes|required|string|max:255',
             'email'    => 'sometimes|required|email|unique:users,email,' . $this->route('user'),
-            'password' => 'sometimes|required|string|min:8',
+            'password' => ['required','string','min:8','regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^a-zA-Z0-9])).+$/'],
         ];
     }
 
@@ -36,6 +36,7 @@ class UpdateUserRequests extends FormRequest
             'password.required' => 'Password is required when provided.',
             'password.string'   => 'Password must be a valid string.',
             'password.min'      => 'Password must be at least 8 characters long.',
+            'password.regex'    => 'The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.',
         ];
     }
 
